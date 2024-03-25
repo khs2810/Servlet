@@ -49,6 +49,7 @@ public class RequestGetServlet extends HttpServlet {
 		
 		//체크박스와 같이 복수의 벨류값들을 추출하고자 할때
 		String[] foods = request.getParameterValues("food"); // ["한식", "분식"]; | null
+		//getParameter가 아니라 getParameterValues면 리턴값이 배열이다.
 		
 		System.out.println("name : " + name);
 		System.out.println("gender : " + gender);
