@@ -68,7 +68,7 @@
 		<% } %>
         <h1 align="center">빠져든다 왕밥빵</h1>
         <div class="login-area">
-            <% if(loginUser == null) { %>
+            <% if(loginUser == null) { %> <!--  -->
             <!-- 로그인 전 -->
             <form action="<%=contextPath %>/login.me" method="POST">
                 <table>
@@ -116,8 +116,8 @@
         <div class="nav-area" align="center">
             <div class="menu"><a href="<%=contextPath %>">HOME</a></div>
             <div class="menu"><a href="<%=contextPath %>/list.no">NOTICE</a></div>
-            <div class="menu"><a href="">자유게시판</a></div>
-            <div class="menu"><a href="">사진게시판</a></div>
+            <div class="menu"><a href="">BOARD</a></div>
+            <div class="menu"><a href="">PHOTO</a></div>
         </div>
 
     </body>

@@ -10,7 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <style>
     .outer{
         background: black;
@@ -30,7 +29,7 @@
         cursor: pointer;
     }
 </style>
-
+</head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
 
@@ -42,7 +41,7 @@
         <% if(loginUser != null && loginUser.getUserId().equals("admin")){%>
             <!-- 현재 로그인한 사용자가 관리자일 때 -->
             <div align="right" style="width: 850px; margin-bottom: 4px;">
-                <a href="" class="btn btn-sm btn-secondary">글쓰기</a>
+                <a href="<%=contextPath %>/enroll.no" class="btn btn-sm btn-secondary">글쓰기</a>
             </div>
         <%}%>
 
@@ -63,7 +62,7 @@
                 <% } else {%>
                     <!-- 공지사항이 있을 경우 -->
                     <% for(Notice n : list) { %>
-                        <tr>
+                        <tr >
                             <td><%=n.getNoticeNo()%></td>
                             <td><%=n.getNoticeTitle()%></td>
                             <td><%=n.getNoticeWriter()%></td>
@@ -75,5 +74,33 @@
             </tbody>
         </table>
     </div>
+    
+    <script>
+
+    	const trList = document.querySelectorAll(".list-area > tbody > tr");
+        //[tr,tr,tr,tr, ...]
+        // 반복을 하면서 이벤트핸들러를 넣어줘야함
+        for(const tr of trList){
+            tr.onclick = function(ev){
+                //url /kh/detail.no
+                // childNodes : 1
+                // children : 0
+                const noticeNo = this.childNodes[1].innerText;
+                //childNodes 자식들을 배열로 꺼낼수 있음
+                console.log(noticeNo);
+
+                location.href = "<%=contextPath%>/detail.no?num=" + noticeNo;
+                // ? 오른쪽은 키값 벨류
+            }
+        }
+
+        // $(function(){
+        //     $(".list-area > tbody > tr").click(function(){
+        //         const noticeNo = $(this).children().eq(0).text();
+        //         //jQuery는 무조건 함수
+        //         location.href = "<%=contextPath%>/detail.no?num=" + noticeNo;
+        //     })
+        // });
+    </script>
 </body>
 </html>
