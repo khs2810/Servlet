@@ -86,7 +86,7 @@
                 // childNodes : 1
                 // children : 0
                 const noticeNo = this.childNodes[1].innerText;
-                //childNodes 자식들을 배열로 꺼낼수 있음
+                //childNodes 자식들을 배열로 꺼낼수 있음               
                 console.log(noticeNo);
 
                 location.href = "<%=contextPath%>/detail.no?num=" + noticeNo;
@@ -97,6 +97,7 @@
         // $(function(){
         //     $(".list-area > tbody > tr").click(function(){
         //         const noticeNo = $(this).children().eq(0).text();
+        //           //this : tr을 말함.
         //         //jQuery는 무조건 함수
         //         location.href = "<%=contextPath%>/detail.no?num=" + noticeNo;
         //     })
