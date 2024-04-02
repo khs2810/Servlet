@@ -1,6 +1,7 @@
 package com.kh.notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,28 +42,27 @@ public class NoticeUpdateController extends HttpServlet {
 		n.setNoticeNo(noticeNo);
 		n.setNoticeTitle(noticeTitle);
 		n.setNoticeContent(noticeContent);
-		//실제 데이터 베이스에서 update -> updateNotice()
 		
-		
+		//실제 데이터베이스에서 update -> updateNotice()
 		int result = new NoticeService().updateNotice(n);
 		
 		//성공시 -> /kh/detail.no?num=
-		if(result > 0) {
-			//재요청(redirect)을 보내야한다.
-			//왜? 지금 페이지 경로는 kh/update.no -> 수정요청페이지
-			//하지만 내가 다음으로 보여주고싶은 페이지는? => 상세페이지(kh/detail.no)
-			//url경로가 다르니까 재요청을 통해서 화면과 url을 맞춰주자
+		if (result > 0) {
+			// 재요청(redirect)을 보내야한다
+			// 왜? 지금 페이지 경로는 kh/update.no -> 수정요청페이지
+			// 하지만 내가 다음으로 보여주고싶은 페이지는? => 상세페이지(kh/detail.no)
+			// url경로가 다르니까 재요청을 통해서 화면과 url을 맞춰주자
 			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 변경되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/detail.no?num=" + n.getNoticeNo());
 			
-		} else {//실패시 -> error페이지
+		} else { //실패시 -> error페이지
 			//실패시에는 왜 request에 errorMsg를 담을까?
-			//에러페이지는 따로 url이 필요하지않다. (왜? errorPage를 직접 찾아갈 일이 없다)
-			// => 포워딩 =>포워딩시에는 request를 전달할 수 있으니까
+			// 에러페이지는 따로 url이 필요하지않다.(왜?  errorPage를 직접 찾아갈 일이 없다.)
+			// => 포워딩 => 포워딩시에는 request를 전달할 수 있으니까 
 			request.setAttribute("errorMsg", "공지사항 수정에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
+	
 	}
 
 	/**

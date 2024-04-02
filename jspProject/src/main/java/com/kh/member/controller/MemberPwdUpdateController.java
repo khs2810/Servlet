@@ -31,26 +31,26 @@ public class MemberPwdUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String updatePwd = request.getParameter("updatePwd");
-		
+	
 		Member updateMem = new MemberService().updatePwdMember(userId, userPwd, updatePwd);
-		
-		if(updateMem == null) {
+	
+		if (updateMem == null) { // 실패
 			request.setAttribute("errorMsg", "비밀번호 수정에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
-		} else {
+		} else { //성공
 			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "비밀번호 수정에 성공하였습니다.");
+			session.setAttribute("alertMsg", "성공적으로 수정하였습니다.");
 			session.setAttribute("loginUser", updateMem);
 			
 			response.sendRedirect(request.getContextPath() + "/myPage.me");
-			
 		}
+	
 	}
 
 	/**

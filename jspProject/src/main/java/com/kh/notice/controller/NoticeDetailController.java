@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.notice.controller;
 
 import java.io.IOException;
 
@@ -7,19 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.kh.notice.model.vo.Notice;
+import com.kh.notice.service.NoticeService;
 
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class NoticeDetailController
  */
-@WebServlet("/logout.me")
-public class LogoutController extends HttpServlet {
+@WebServlet("/detail.no")
+public class NoticeDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutController() {
+    public NoticeDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,11 +30,20 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//로그아웃 요청처리 => session만료시키기 == 세션을 무효화시키기
-		HttpSession session = request.getSession();
-		session.invalidate();
+	
+		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
-		response.sendRedirect(request.getContextPath()); // /kh 
+		//조회수 1증가  + notice조회
+		Notice n = new NoticeService().increaseCount(noticeNo);
+		
+		if (n != null) { //성공 -> 조회가능한 공지사항이 있다
+			request.setAttribute("notice", n);
+			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
+			
+		} else { //실패
+			request.setAttribute("errorMsg", "공지사항 조회에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

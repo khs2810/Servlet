@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class memberEnrollFormController
+ * Servlet implementation class MemberEnrollFormController
  */
 @WebServlet("/enrollForm.me")
 public class MemberEnrollFormController extends HttpServlet {
@@ -30,9 +30,7 @@ public class MemberEnrollFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//회원가입페이지 포워딩
 		RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
-		
 		view.forward(request, response);
-		
 	}
 
 	/**

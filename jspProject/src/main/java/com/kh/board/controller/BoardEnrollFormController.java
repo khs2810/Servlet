@@ -1,25 +1,28 @@
-package com.kh.member.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.kh.board.model.vo.Category;
+import com.kh.board.service.BoardService;
 
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class BoardEnrollFormController
  */
-@WebServlet("/logout.me")
-public class LogoutController extends HttpServlet {
+@WebServlet("/enrollForm.bo")
+public class BoardEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutController() {
+    public BoardEnrollFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,11 +31,12 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//로그아웃 요청처리 => session만료시키기 == 세션을 무효화시키기
-		HttpSession session = request.getSession();
-		session.invalidate();
 		
-		response.sendRedirect(request.getContextPath()); // /kh 
+		ArrayList<Category> list = new BoardService().selectCategoryList();
+	
+		//응답뷰 요청
+		request.setAttribute("categorys", list);
+		request.getRequestDispatcher("views/board/boardEnrollForm.jsp").forward(request, response);
 	}
 
 	/**

@@ -3,16 +3,39 @@ package com.kh.board.model.vo;
 public class Board {
 	private int boardNo;
 	private int boardType;
-	private String category; // 작성기능 사용시 => 카테고리 번호 | 조회 카테고리명
+	private String category; //작성기능 사용시 => 카테고리 번호 | 조회 카테고리명
 	private String boardTitle;
 	private String boardContent;
-	private String boardWriter; //　작성기능시 회원번호 | 조회기능 회원아이디
+	private String boardWriter; // 작성기능시 회원번호 | 조회기능 회원아이디
 	private int count;
 	private String createDate;
 	private String status;
 	
 	public Board() {
 		super();
+	}
+	
+	
+
+	public Board(int boardNo, String category, String boardTitle, String boardContent, String boardWriter,
+			String createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.category = category;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardWriter = boardWriter;
+		this.createDate = createDate;
+	}
+
+	public Board(int boardNo, String category, String boardTitle, String boardWriter, int count, String createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.category = category;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.count = count;
+		this.createDate = createDate;
 	}
 
 	public Board(int boardNo, int boardType, String category, String boardTitle, String boardContent,
@@ -107,8 +130,5 @@ public class Board {
 				+ boardTitle + ", boardContent=" + boardContent + ", boardWriter=" + boardWriter + ", count=" + count
 				+ ", createDate=" + createDate + ", status=" + status + "]";
 	}
-	
-	
-	
 	
 }

@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 <style>
     .outer{
-        background-color: black;
+        background: black;
         color: white;
         width: 1000px;
         margin: auto;
         margin-top: 50px;
-        padding: 10px 0px 50px 0px;
+        padding: 10px 0 50px 0;
     }
 
     table{
@@ -21,19 +21,17 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp"%>
-    <!-- ../ : 지금위치로부터 뒤로 한칸 빠질수 있음 -->
+	<%@ include file="../common/menubar.jsp" %>
 
     <div class="outer">
         <br>
         <h2 align="center">회원가입</h2>
-        <form action="<%=contextPath%>/insert.me" id="enroll=form" method="POST">
+        <form action="<%=contextPath%>/insert.me" id="enroll-form" method="POST">
             <table>
                 <tr>
                     <td>* 아이디</td>
                     <td><input type="text" name="userId" maxlength="12" required></td>
-                    <td><button type="button">중복확인</button></td> 
-                    <!-- form태그 안이므로, type을 버튼으로 안주면 submit이 되어버림 -->
+                    <td><button type="button">중복확인</button></td>
                 </tr>
                 <tr>
                     <td>* 비밀번호</td>
@@ -52,7 +50,7 @@
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td><input type="text" name="phone" placeholder="- 포함해서 입력"></td>
+                    <td><input type="text" name="phone"  placeholder="- 포함해서 입력"></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -70,20 +68,19 @@
                     <td colspan="2">
                         <input type="checkbox" name="interest" id="sports" value="운동">
                         <label for="sports">운동</label>
-                        <!-- label에 id와 동일하게 넣어줘야 인식함 -->
                         <input type="checkbox" name="interest" id="climbing" value="등산">
-                        <label for="sports">등산</label>
+                        <label for="climbing">등산</label>
                         <input type="checkbox" name="interest" id="fishing" value="낚시">
-                        <label for="sports">낚시</label>
+                        <label for="fishing">낚시</label>
                         <br>
                         <input type="checkbox" name="interest" id="cooking" value="요리">
-                        <label for="sports">요리</label>
+                        <label for="cooking">요리</label>
                         <input type="checkbox" name="interest" id="game" value="게임">
-                        <label for="sports">게임</label>
+                        <label for="game">게임</label>
                         <input type="checkbox" name="interest" id="movie" value="영화">
-                        <label for="sports">영화</label>
+                        <label for="movie">영화</label>
                         <input type="checkbox" name="interest" id="etc" value="기타">
-                        <label for="sports">기타</label>
+                        <label for="etc">기타</label>
                     </td>
                 </tr>
             </table>
@@ -102,10 +99,9 @@
             const pwd = document.querySelector("#enroll-form input[name=userPwd]").value;
             const pwdCheck = document.querySelector("#enroll-form input[name=userPwdCheck]").value;
 
-            if(pwd !== pwdCheck){
-                alert("비밀번호가 일치하지 않습니다.");
+            if (pwd !== pwdCheck){
+                alert("비밀번호가 일치하지 않습니다.")
                 return false;
-
             }
         }
     </script>

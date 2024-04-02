@@ -7,25 +7,25 @@
 			 , USER_ID
 			 , COUNT
 			 , CREATE_DATE
-		FROM NOTICE N
-		JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
-	   WHERE N.STATUS = 'Y'
-	   ORDER BY NOTICE_NO DESC 
+		 FROM NOTICE N
+		 JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+		WHERE N.STATUS = 'Y'
+		ORDER BY NOTICE_NO DESC
 	</entry>
 	<entry key="insertNotice">
 		INSERT INTO NOTICE
 		(
 			NOTICE_NO
-			,NOTICE_TITLE
-			,NOTICE_CONTENT
-			,NOTICE_WRITER
+		   ,NOTICE_TITLE
+		   ,NOTICE_CONTENT
+		   ,NOTICE_WRITER
 		)
 		VALUES
 		(
 			SEQ_NNO.NEXTVAL
-			,?
-			,?
-			,?
+		   ,?
+		   ,?
+		   ,?
 		)
 	</entry>
 	<entry key="increaseCount">
@@ -34,21 +34,22 @@
 		WHERE NOTICE_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
 	<entry key="selectNotice">
 		SELECT NOTICE_NO
 			 , NOTICE_TITLE
 			 , NOTICE_CONTENT
 			 , USER_ID
 			 , CREATE_DATE
-		FROM NOTICE N
-		JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
-	   WHERE N.STATUS = 'Y'
-	  	 AND NOTICE_NO = ?
+		 FROM NOTICE N
+		 JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+		WHERE N.STATUS = 'Y'
+		  AND NOTICE_NO = ?
 	</entry>
 	<entry key="updateNotice">
 		UPDATE NOTICE
-		   SET NOTICE_TITLE = ?
-			 , NOTICE_CONTENT = ?
+		   SET NOTICE_TITLE = ?,
+			   NOTICE_CONTENT = ?
 		 WHERE NOTICE_NO = ?
 	</entry>
 	<entry key="deleteNotice">
@@ -56,5 +57,4 @@
 		   SET STATUS = 'N'
 		 WHERE NOTICE_NO = ?
 	</entry>
-	
 </properties>

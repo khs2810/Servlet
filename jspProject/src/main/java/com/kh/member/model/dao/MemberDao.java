@@ -3,34 +3,26 @@ package com.kh.member.model.dao;
 import static com.kh.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.member.model.vo.Member;
 
 public class MemberDao {
-	
 	private Properties prop = new Properties();
 	
 	public MemberDao() {
 		String filePath = MemberDao.class.getResource("/db/sql/member-mapper.xml").getPath();
 		
-		
-			try {
-				prop.loadFromXML(new FileInputStream(filePath));
-			} catch (InvalidPropertiesFormatException e) {
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			prop.loadFromXML(new FileInputStream(filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -53,22 +45,19 @@ public class MemberDao {
 			
 			if(rset.next()) {
 				m = new Member(
-						rset.getInt("user_no"),
-						rset.getString("user_id"),
-						rset.getString("user_pwd"),
-						rset.getString("user_name"),
-						rset.getString("phone"),
-						rset.getString("email"),
-						rset.getString("address"),
-						rset.getString("interest"),
-						rset.getDate("enroll_date"),
-						rset.getDate("modify_date"),
-						rset.getString("status")						
+							rset.getInt("user_no"),
+							rset.getString("user_id"),
+							rset.getString("user_pwd"),
+							rset.getString("user_name"),
+							rset.getString("phone"),
+							rset.getString("email"),
+							rset.getString("address"),
+							rset.getString("interest"),
+							rset.getDate("enroll_date"),
+							rset.getDate("modify_date"),
+							rset.getString("status")
 						);
-						
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -80,22 +69,23 @@ public class MemberDao {
 	}
 	
 	public int insertMember(Connection conn, Member m) {
-		//insert문 => 처리된 행 수 => 트랜잭션처리
+		// insert문 => 처리된 행 수 => 트랜잭션처리
 		
 		int result = 0;
+		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertMember"); // 미완성
+		String sql = prop.getProperty("insertMember"); //미완성
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, m.getUserId()); 
-			pstmt.setString(2, m.getUserPwd()); 
-			pstmt.setString(3, m.getUserName()); 
-			pstmt.setString(4, m.getPhone()); 
-			pstmt.setString(5, m.getEmail()); 
-			pstmt.setString(6, m.getAddress()); 
-			pstmt.setString(7, m.getInterest()); 
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getInterest());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -105,18 +95,17 @@ public class MemberDao {
 		}
 		
 		return result;
-		
 	}
 	
 	public int updateMember(Connection conn, Member m) {
 		//update -> 처리된 행 수 => 트랜잭션처리
 		int result = 0;
 		
-		PreparedStatement pstmt =null;
+		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);  // 미완성된 sql
+			pstmt = conn.prepareStatement(sql); //미완성된 sql		
 			
 			pstmt.setString(1, m.getUserName());
 			pstmt.setString(2, m.getPhone());
@@ -138,18 +127,19 @@ public class MemberDao {
 	public Member selectMember(Connection conn, String userId) {
 		//select -> resultset(한행) -> Member객체
 		
-		Member m= null;
+		Member m = null;
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMember");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);// 미완성
+			pstmt = conn.prepareStatement(sql); // 미완성
 			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			if (rset.next()) {
 				m = new Member(
 						rset.getInt("user_no"),
 						rset.getString("user_id"),
@@ -161,11 +151,9 @@ public class MemberDao {
 						rset.getString("interest"),
 						rset.getDate("enroll_date"),
 						rset.getDate("modify_date"),
-						rset.getString("status")						
-						);
-						
+						rset.getString("status")
+					);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -177,15 +165,14 @@ public class MemberDao {
 	}
 	
 	public int updatePwdMember(Connection conn, String userId, String userPwd, String updatePwd) {
-		//update => 처리된 행수 => 트랜잭션
-		int result =0;
+		//update =>처리된 행수 => 트랜잭션
+		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updatePwdMember");
 		
-		
 		try {
-			pstmt = conn.prepareStatement(sql);//미완성
+			pstmt = conn.prepareStatement(sql); //미완성
 			
 			pstmt.setString(1, updatePwd);
 			pstmt.setString(2, userId);
@@ -202,9 +189,10 @@ public class MemberDao {
 		return result;
 		
 	}
-
+	
 	public int deleteMember(Connection conn, String userId, String userPwd) {
-		int result =0;
+		//delete(update) -> 처리된 행수 -> 트랜잭션
+		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteMember");
@@ -218,7 +206,10 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		
 		return result;
 	}
 }

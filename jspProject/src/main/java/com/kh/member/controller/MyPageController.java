@@ -32,19 +32,19 @@ public class MyPageController extends HttpServlet {
 		//로그인 전에 url쳐서 직접요청도 가능
 		//로그인 후에 요청
 		
-		//세션값 내부에 loginUser가 있는지 확인
+		//세션값내부에 loginUser가 있는지 확인
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("loginUser") == null) { // 로그인이 안되있는 상태
+		if(session.getAttribute("loginUser") == null) {//로그인이 안되있는 상태
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath())
-			;
+			response.sendRedirect(request.getContextPath());
+			
 		} else { //로그인이 되어있는 상태
 			RequestDispatcher view = request.getRequestDispatcher("views/member/myPage.jsp");
 			view.forward(request, response);
 		}
-		
-		
+	
+	
 	}
 
 	/**
