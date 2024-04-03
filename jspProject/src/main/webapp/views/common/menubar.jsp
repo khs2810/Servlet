@@ -65,7 +65,7 @@
 		</script>
 		<% session.removeAttribute("alertMsg"); %>
 	<% } %>
-    <h1 align="center">Welcome KH World</h1>
+    <h1 align="center">Welcome 왕밥빵 World</h1>
     <div class="login-area">
         <% if(loginUser == null) { %>
             <!-- 로그인 전 -->
@@ -112,9 +112,9 @@
 
     <div class="nav-area" align="center">
         <div class="menu"><a href="<%=contextPath %>">HOME</a></div>
-        <div class="menu"><a href="<%=contextPath %>/list.no">공지사항</a></div>
-        <div class="menu"><a href="<%=contextPath %>/list.bo?cpage=1">일반게시판</a></div>
-        <div class="menu"><a href="">사진게시판</a></div>
+        <div class="menu"><a href="<%=contextPath %>/list.no">NOTICE</a></div>
+        <div class="menu"><a href="<%=contextPath %>/list.bo?cpage=1">BOARD</a></div>
+        <div class="menu"><a href="">PHOTO</a></div>
     </div>
 
     
