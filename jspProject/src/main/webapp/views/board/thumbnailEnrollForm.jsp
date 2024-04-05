@@ -15,28 +15,20 @@
         margin-top: 50px;
     }
 
-    #enroll-form table{
-        border: 1px solid white;
-    }
-
-    #enroll-form input, #enroll-form textarea{
-        width: 100%;
-        box-sizing: border-box;
-    }
-    #enroll-form img:hover{
-        cursor: pointer;
-        scale: 0.98;
-    }
+    
 </style>
 </head>
 <body>
-	<%@ includ file="../common/menubar.jsp" %>
+	<%@ include file="../common/menubar.jsp" %>
     <div class="outer">
         <br>
-        <h2 align="center">사진게시판 작성하기</h2>
+        <h2 align="center">사진게시판 상세보기</h2>
         <br>
-
-        <form action="" id="enroll-form">
+		
+		<table class="detail-area" align="center">
+		
+		</table>
+        <input type="hidden" name="userNo" value="<%=loginUser.getUserNo() %>">
             <table align="center">
                 <tr>
                     <th width="100">제목</th>
@@ -64,18 +56,11 @@
                 </tr>
             </table>
             
-            <div style="display: none;">
-                <input type="file" name="file1" id="file1" required>
-                <input type="file" name="file2" id="file2">
-                <input type="file" name="file3" id="file3">
-                <input type="file" name="file4" id="file4">
+            <br>
+            
+            <div align="center">
+            	<button type="submit">목록가기</button>
             </div>
-            <script>
-                function chooseFile(num){
-                    const imgInput = document.querySelector("#file" + num);
-                }
-            </script>
-        </form>
     </div>
 </body>
 </html>

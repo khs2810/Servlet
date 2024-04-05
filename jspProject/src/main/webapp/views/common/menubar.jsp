@@ -114,7 +114,7 @@
         <div class="menu"><a href="<%=contextPath %>">HOME</a></div>
         <div class="menu"><a href="<%=contextPath %>/list.no">NOTICE</a></div>
         <div class="menu"><a href="<%=contextPath %>/list.bo?cpage=1">BOARD</a></div>
-        <div class="menu"><a href="">PHOTO</a></div>
+        <div class="menu"><a href="<%=contextPath %>/list.th">PHOTO</a></div>
     </div>
 
     

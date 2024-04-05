@@ -20,9 +20,10 @@
         background: black;
         color: white;
         width: 1000px;
-        height: 500px;
+        height: auto;
         margin: auto;
         margin-top: 50px;
+        padding-bottom: 24px;
     }
 
     .outer table {
@@ -83,6 +84,104 @@
 	            <a href="<%=contextPath %>/updateForm.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-warning">수정하기</a>
 	            <a href="<%=contextPath %>/delete.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-danger">삭제하기</a>
             <%} %>
+        </div>
+
+        <br>
+
+        <div id="reply-area">
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th>댓글작성</th>
+                        <%if(loginUser != null) { %>
+	                        <td>
+	                            <textarea name="" id="reply-content" cols="50" rows="3" style="resize: none;"></textarea>
+	                        </td>
+	                        <td>
+	                            <button onclick="insertReply()">댓글등록</button>
+	                        </td>
+	                    <%} else { %>
+	                    	<td>
+	                            <textarea name="" id="reply-content" cols="50" rows="3" style="resize: none;"></textarea>
+	                        </td>
+	                        <td>
+	                            <button disabled>댓글등록</button>
+	                        </td>
+	                    <%} %>    
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td>King</td>
+                        <td>댓글남깁니다.</td>
+                        <td>2024/03/05</td>
+                    </tr>
+                    <tr>
+                        <td>Bob</td>
+                        <td>댓글남깁니다.</td>
+                        <td>2024/03/05</td>
+                    </tr>
+                    <tr>
+                        <td>Bbang</td>
+                        <td>댓글남깁니다.</td>
+                        <td>2024/03/05</td>
+                    </tr> -->
+                    
+                </tbody>                
+            </table>
+
+            <script>
+                window.onload = function(){
+                    // console.log("실행완료")
+                    setInterval(selectReplyList(), 2000);
+                    //일정 시간마다 특정 함수를 실행 시켜주는 함수
+                }
+                function selectReplyList(){                    
+                    $.ajax({
+                        url: "rlist.bo",
+                        data: {
+                            bno: <%=b.getBoardNo()%>
+                        },
+                        success: function(res){
+                            for(let reply of res){
+                                str = ("<tr>" +
+                                    + "<td>" + reply.replyWriter + "</td>" +
+                                    + "<td>" + reply.replyContent + "</td>" +
+                                    + "<td>" + reply.createDate + "</td>" +
+                                    "</tr>")
+                                    
+                            }
+                            document.querySelector("#reply-area tbody").innerHTML = str;
+                        },
+                        drror: function(){
+                            console.log("댓글조회중 ajax통신 실패")
+                            
+                        }
+                    })
+                }
+
+                function insertReply(){
+                    const boardNo = <%=b.getBoardNo()%>;
+                    const content = document.querySelector("#reply-content").value;
+                    //textarea이기 때문에 value ㄴㄴ innertext로 해야만 함!!
+
+                    $.ajax({
+                        url : "rinsert.bo",
+                        data : {
+                            bno : boardNo,
+                            content : content
+                        },
+                        type : "POST",
+                        success : function(res){
+                            document.querySelector("#reply-content").value = "";
+                            selectReplyList(res);
+                        }, 
+                        error : function(){
+                            console.log("댓글 작성중 ajax통신 실패")
+                        }
+                    })
+                }
+            </script>
         </div>
 
     </div>
